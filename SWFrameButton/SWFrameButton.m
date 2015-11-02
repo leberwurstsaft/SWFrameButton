@@ -104,7 +104,7 @@ static UIEdgeInsets const SWContentEdgeInsets = {5, 10, 5, 10};
     [super setHighlighted:highlighted];
 
     if (self.selected) {
-        if (self.highlighted) {
+        if (self.highlighted ^ self.inverted) {
             self.backgroundImageView.alpha = 0.5;
             self.titleLabel.alpha = 0;
             self.imageView.alpha = 0;
@@ -118,8 +118,7 @@ static UIEdgeInsets const SWContentEdgeInsets = {5, 10, 5, 10};
         }
     } else {
         [UIView animateWithDuration:SWAnimationDuration animations:^{
-            if (highlighted) {
-                
+            if (highlighted ^ self.inverted) {
                 self.backgroundImageView.alpha = 1;
                 self.titleLabel.alpha = 0;
                 self.imageView.alpha = 0;
@@ -139,7 +138,7 @@ static UIEdgeInsets const SWContentEdgeInsets = {5, 10, 5, 10};
 {
     [super setSelected:selected];
 
-    if (selected) {
+    if (selected ^ self.inverted) {
         self.backgroundImageView.alpha = 1;
         self.titleLabel.alpha = 0;
         self.imageView.alpha = 0;
