@@ -118,19 +118,40 @@ static UIEdgeInsets const SWContentEdgeInsets = {5, 10, 5, 10};
         }
     } else {
         [UIView animateWithDuration:SWAnimationDuration animations:^{
-            if (highlighted ^ self.inverted) {
-                self.backgroundImageView.alpha = 1;
-                self.titleLabel.alpha = 0;
-                self.imageView.alpha = 0;
-                self.imageView.tintColor = [UIColor clearColor];
-            } else {
-                self.layer.borderColor = self.tintColor.CGColor;
-                self.backgroundImageView.alpha = 0;
-                self.titleLabel.alpha = 1;
-                self.imageView.alpha = 1;
-                self.imageView.tintColor = self.tintColor;
-            }
+            [self updateButton];
         }];
+    }
+}
+
+- (void)updateButton {
+    if (!self.inverted) {
+        if (self.highlighted) {
+            self.backgroundImageView.alpha = 1;
+            self.titleLabel.alpha = 0;
+            self.imageView.alpha = 0;
+            self.imageView.tintColor = [UIColor clearColor];
+        } else {
+            self.layer.borderColor = self.tintColor.CGColor;
+            self.backgroundImageView.alpha = 0;
+            self.titleLabel.alpha = 1;
+            self.imageView.alpha = 1;
+            self.imageView.tintColor = self.tintColor;
+        }
+    }
+    else {
+        if (!self.highlighted) {
+            UIImage *image = self.backgroundImageView.image;
+            self.backgroundImageView.alpha = 1;
+            self.titleLabel.alpha = 0;
+            self.imageView.alpha = 0;
+            self.imageView.tintColor = [UIColor clearColor];
+        } else {
+            self.layer.borderColor = self.tintColor.CGColor;
+            self.backgroundImageView.alpha = 0;
+            self.titleLabel.alpha = 1;
+            self.imageView.alpha = 1;
+            self.imageView.tintColor = self.tintColor;
+        }
     }
 }
 
@@ -138,7 +159,7 @@ static UIEdgeInsets const SWContentEdgeInsets = {5, 10, 5, 10};
 {
     [super setSelected:selected];
 
-    if (selected ^ self.inverted) {
+    if (selected) {
         self.backgroundImageView.alpha = 1;
         self.titleLabel.alpha = 0;
         self.imageView.alpha = 0;
@@ -154,7 +175,6 @@ static UIEdgeInsets const SWContentEdgeInsets = {5, 10, 5, 10};
     [self setTitleColor:self.tintColor forState:UIControlStateNormal];
     self.backgroundImageView.image = [self sw_backgroundImage];
 }
-
 
 #pragma mark - Properties
 

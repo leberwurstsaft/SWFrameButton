@@ -28,4 +28,6 @@
 @property (nonatomic, assign) IBInspectable CGFloat borderWidth; //UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) IBInspectable BOOL inverted; //UI_APPEARANCE_SELECTOR;
 
+- (void)updateButton;
+
 @end
